@@ -1,0 +1,14 @@
+<div id="dlg_create_group" title="创建小组" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 180px; min-height: 60px; width: auto;" class="ui-dialog-content ui-widget-content">
+		<form id="form_create_group" action="/activity/create_group/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<label for="name">小组名称：</label>
+				<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all"/>
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="确定"/>
+			</fieldset>
+		</form><!-- form_create_group -->
+	</div>
+</div><!-- dlg_create_group -->

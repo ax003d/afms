@@ -1,0 +1,125 @@
+{% extends "activity/base.html" %}
+
+{% block title %}{{ user.last_name }}{{ user.first_name }}的首页{% endblock %}
+
+{% block content %}
+<div id="inner-body">
+	<div class="ui-layout-center">
+		{% include "activity/balance.html" %}
+	</div><!-- ui-layout-center -->
+	<div class="ui-layout-north">
+		<div class="inner-north">
+			<img src="/static/img/logo.png" alt="logo"/>
+			<h3> 运动员：{{ user.username }}({{ user.last_name }}{{ user.first_name }}) | <a href="/accounts/logout">退出</a></h3>
+		</div>
+	</div><!-- ui-layout-north -->
+	<div class="ui-layout-south">
+		<div class="inner-south">
+			<h3>2012 by ax003d</h3>
+			<script src="http://s20.cnzz.com/stat.php?id=4474403&web_id=4474403&show=pic1" language="JavaScript"></script>
+		</div>
+	</div><!-- ui-layout-south -->
+	<div class="ui-layout-east">
+		<div id="accordion">
+			<h3><a href="#">账户信息</a></h3>
+			<div>
+				<ul>
+					<li>
+						<a class="menu-balance" href="#">我的余额</a>
+					</li>
+					<li>
+						<a class="menu-account-detail" href="#">我的账户明细</a>
+					</li>
+					<li>
+						<a class="menu-activities" href="#">我参加的活动</a>
+					</li>
+				</ul>
+			</div>
+			<h3><a href="#">我的小组</a></h3>
+			<div>
+				<ul>
+					<li>
+						<a class="menu-managed-groups" href="#">管理的小组</a>
+					</li>
+					<li>
+						<a class="menu-joined-groups" href="#">参与的小组</a>
+					</li>
+				</ul>
+			</div>
+			<h3><a href="#">个人信息</a></h3>
+			<div>
+				<ul>
+					<li>
+						<a class="menu-personal-info" href="#">个人信息</a>
+					</li>
+					<!--
+					<li>
+					<a class="menu-" href="#">安全设置</a>
+					</li>
+					-->
+					<li>
+						<a class="menu-sys-msgs" href="#">系统消息</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- accordion -->
+	</div><!-- ui-layout-east -->
+	<div id="loading">
+		<img src="/static/img/loader.gif" alt="loading icon"/>
+	</div>
+</div><!-- inner-body -->
+<script type="text/javascript" src="/static/js/profile.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#inner-body").layout({
+			applyDefaultStyles : false
+		});
+
+		$("#accordion").accordion({
+			autoHeight : false,
+			navigation : true
+		});
+
+		$(".menu-balance").click(function() {
+			$(".ui-layout-center").load('/activity/balance/');
+		});
+
+		$(".menu-account-detail").click(function() {
+			show_account_detail();
+		});
+
+		$(".menu-activities").click(function() {
+			show_activities();
+		});
+
+		$(".menu-managed-groups").click(function() {
+			show_managed_groups();
+		});
+
+		$(".menu-joined-groups").click(function() {
+			$(".ui-layout-center").load('/activity/joined_groups/');
+		});
+
+		$(".menu-sys-msgs").click(function() {
+			show_sys_msgs();
+		});
+
+		$(".menu-personal-info").click(function() {
+			show_personal_info();
+		});
+		if($("#loading").length != 0) {
+			$("#loading").ajaxStart(function() {
+				$(this).show();
+			}).ajaxStop(function() {
+				$(this).hide();
+			});
+		}
+
+		$.ajaxSetup({
+			cache : false,
+			timeout : 15000
+		});
+	});
+	// document.ready
+</script>
+{% endblock %} 

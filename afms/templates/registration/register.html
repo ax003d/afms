@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>注册-乐去网</title>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/initializr/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="/static/css/login.css" rel="stylesheet" media="screen" />
+	</head>
+	<body class="container">
+		<header class="lead mt30">
+			<h1><a href="#" class="titleColor">乐去网</a></h1>
+		</header>
+
+		<div class="h400 row-fluid well" id="main">
+			<div class="span7 mt20 pl35">
+				<img src="/static/img/registerBg.jpg" />
+			</div>
+			<div class="span5 mt20 pl10">
+				<form class="form-horizontal" method="post">
+					{% csrf_token %}
+					<div class="control-group">
+						<label for="inputName">账号</label>
+						<input type="text" id="inputName" name="username" placeholder="用户名" value="{{ username }}">
+						{% if user_exist %}
+						<label for="inputName" class="error" style="display: block;">该账号已被注册!</label>
+						{% endif %}
+					</div>
+					<div class="control-group">
+						<label for="inputEmail">电子邮件</label>
+						<input type="email" id="inputEmail" name="email" placeholder="电子邮件" value="{{ email }}">
+						{% if email_used %}
+						<label for="inputEmail" class="error" style="display: block;">该邮箱已被注册!</label>
+						{% endif %}
+					</div>
+					<div class="control-group">
+						<label for="inputPassword">密码</label>
+						<input type="password" id="inputPassword" name="password_1" placeholder="密码">
+						<span id="pwd1_err" class="hide help-inline">密码为6~12个字符!</td>
+					</div>
+					<div class="control-group ">
+						<label for="inputPassword2">确认密码</label>
+						<input type="password" id="inputPassword2" name="password_2" placeholder="确认密码">
+						<span id="pwd2_err" class="hide help-inline">两次密码不一致!</span>
+					</div>
+					<div class="control-group">
+						<button type="submit" class="btn btn-success btn-large">
+							注  册
+						</button>
+						<a href="/accounts/login/" class="ml30">已有乐去网账号？</a>
+					</div>
+					<form>
+			</div>
+
+		</div>
+
+		<footer class="navbar-bottom container">
+			<p>
+				&copy; 2012 ~ 2013 乐去网
+			</p>
+		</footer>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script>
+			window.jQuery || document.write('<script src="/static/initializr/js/vendor/jquery-1.8.2.min.js"><\/script>')
+		</script>
+		<script src="/static/initializr/js/vendor/bootstrap.min.js"></script>
+		<script src="/static/js/jquery.validate.min.js"></script>
+		<script src="/static/js/messages_zh.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("form").validate({
+					rules : {
+						username : {
+							required : true,
+							minlength : 3,
+							maxlength : 16,
+							remote : {
+								url : '/verify/username/',
+								cache : false
+							}
+						},
+						email : {
+							required : true,
+							email : true,
+							remote : {
+								url : '/verify/email/',
+								cache : false
+							}
+						},
+						password_1 : {
+							required : true,
+							minlength : 6,
+							maxlength : 8
+						},
+						password_2 : {
+							required : true,
+							minlength : 6,
+							maxlength : 8,
+							equalTo : "#inputPassword"
+						}
+					},
+					highlight : function(element, errorClass, validClass) {
+						$(element).closest('.control-group').removeClass('success').addClass('error');
+					},
+					unhighlight : function(element, errorClass, validClass) {
+						$(element).closest('.control-group').removeClass('error').addClass('success');
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

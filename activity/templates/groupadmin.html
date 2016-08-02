@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block headx %}
+<link rel="stylesheet" type="text/css" href="/static/markitup/markitup/skins/markitup/style.css">
+<link rel="stylesheet" type="text/css" href="/static/markitup/markitup/sets/markdown/style.css">
+{% endblock %}
+
+{% block content %}
+<div class="well">
+	{% ifequal status "ERROR" %}
+	<div class="alert alert-error">
+		<h4>修改小组信息失败</h4>
+	</div>
+	{% endifequal %}
+
+	{% ifequal status "OK" %}
+	<div class="alert alert-success">
+		<h4>成功修改小组信息</h4>
+	</div>
+	{% endifequal %}
+
+	<form class="form-horizontal" method="post">
+		{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label" for="name">小组名称</label>
+			<div class="controls">
+				<input type="text" class="input-xxlarge" id="name" name="name" placeholder="小组名称" value="{{ group.name }}">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="description">小组简介</label>
+			<div class="controls">
+				<textarea id="description" class="input-xxlarge" name="description" placeholder="小组简介"
+						rows="8" >{{ group.description }}</textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary">
+					保存
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
+
+{% block bodyx %}
+<script type="text/javascript" src="/static/markitup/markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="/static/markitup/markitup/sets/markdown/set.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#description').markItUp(mySettings);
+});
+</script>
+{% endblock %}

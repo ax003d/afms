@@ -1,0 +1,29 @@
+<div class="activities">
+	<h1>我参加的活动</h1>
+	{% if activities %}
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th style="min-width: 80px">日期</th>
+				<th style="min-width: 120px">小组</th>
+				<th style="min-width: 60px">余额支付</th>
+				<th style="min-width: 60px">现金支付</th>
+				<th>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for as in activities %}
+			<tr>
+				<td><a href="#tabs-activity-records" onclick="show_group_act_detl({{ as.groupship.group.id}}, {{ as.activity.id }})">{{ as.activity.date|date:"c" }}</a></td>
+				<td>{{ as.groupship.group.name }}</td>
+				<td>{{ as.balance_pay }}</td>
+				<td>{{ as.cash_pay }}</td>
+				<td>{{ as.remark }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<p>您还没有参与任何活动!</p>
+	{% endif %}
+</div><!-- activities -->

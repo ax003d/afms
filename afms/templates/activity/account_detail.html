@@ -1,0 +1,29 @@
+<div class="account-detail">
+	<h1>
+		我的账户明细
+	</h1>
+	{% if account_details %}
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th>日期</th>
+				<th>所属小组</th>
+				<th>金额</th>
+				<th>备注</th>
+			</tr>
+		</thead>
+		{% for ad in account_details %}
+		<tbody>
+			<tr>
+				<td>{{ ad.datetime|date:"c" }}</td>
+				<td>{{ ad.groupship.group.name }}</td>
+				<td>{{ ad.money }}</td>
+				<td>{{ ad.remark }}</td>
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>您还没有任何账户交易信息!</p>
+	{% endif %}
+</div><!-- account-detail -->

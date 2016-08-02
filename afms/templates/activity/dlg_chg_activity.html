@@ -1,0 +1,17 @@
+<div id="dlg_chg_activity" title="修改活动信息" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 252px; min-height: 60px; width: auto;" class="ui-dialog-content ui-widget-content">
+		<form id="form_chg_activity" action="/activity/chg_activity/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<input type="hidden" name="activity" id="activity" />
+				<label for="total_fee">活动费用：</label>
+				<input type="text" name="total_fee" id="total_fee" class="text ui-widget-content ui-corner-all" />
+				<label for="date">活动时间：</label>
+				<input type="date" name="date" id="date" class="date-picker text ui-widget-content ui-corner-all" />
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" id="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="确定"/>
+			</fieldset>
+		</form><!-- form_chg_activity -->
+	</div>
+</div><!-- dlg_chg_activity -->

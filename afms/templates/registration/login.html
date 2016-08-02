@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>登陆-乐去网</title>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/initializr/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="/static/css/login.css" rel="stylesheet" media="screen" />
+	</head>
+	<body class="container">
+		<header class="lead mt30">
+			<h1 class="titleColor">乐去网</h1>
+		</header>
+
+		<section class="row-fluid h450 mainBg" id="main">
+			<div class="span7"></div>
+			<div class="span4 mt60 well pl35">
+				<form class="form-horizontal" action="/accounts/login/" method="post">
+					{% csrf_token %}
+					<div class="control-group">
+						<label for="inputName">账号</label>
+						<input type="text" id="inputName" name="username" placeholder="用户名">
+					</div>
+					<div class="control-group">
+						<label for="inputPassword">密码</label>
+						<input type="password" id="inputPassword" name="password" placeholder="密码">
+						<div>
+							<a href="/registration/password_reset/">忘记密码?</a>
+						</div>
+					</div>
+					<div class="control-group">
+						<div>
+							<label class="checkbox">
+								<input type="checkbox">
+								记住我 </label>
+						</div>
+
+						<button type="submit" class="mt10 btn btn-success btn-large">
+							登   陆
+						</button>
+						<a href="/activity/register/" class="ml30 mt10 btn btn-large"> 注  册 </a>
+						<!-- <a href="#"> 还没有账号?</a> -->
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<footer class="navbar-bottom container mt30">
+			<p>
+				&copy; 2012 ~ 2013 乐去网
+			</p>
+		</footer>
+
+	</body>
+</html>

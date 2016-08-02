@@ -1,0 +1,68 @@
+<h2>系统消息</h2>
+<div class="sys-msg">
+	<div class="msg-tabs">
+		<ul>
+			<li>
+				<a href="#tabs-group-apply">加入申请</a>
+			</li>
+			<li>
+				<a href="#tabs-sys-msgs">系统消息</a>
+			</li>			
+		</ul>
+		<div id="tabs-group-apply">
+			{% if applies %}
+			<table class="ui-widget ui-widget-content">
+				<thead>
+					<tr class="ui-widget-header">
+						<th>编号</th>
+						<th>消息</th>
+						<th>备注</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for a in applies %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td>{{ a.joiner.last_name }}{{ a.joiner.first_name }} 申请加入小组 {{ a.group.name }}</td>
+						<td>{{ a.remark }}</td>
+						<td><a href="#" onclick="on_group_apply_accepted({{ a.id }})">同意</a> | <a href="#" onclick="on_group_apply_denied({{ a.id }})">拒绝</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<form id="form_group_apply" action="/activity/process_group_apply/" method="post">
+				{% csrf_token %}
+				<input type="hidden" id="apply" name="apply" />
+				<input type="hidden" id="accepted" name="accepted" />
+			</form>
+			{% else %}
+			<p>目前没有加入申请消息!</p>
+			{% endif %}
+		</div><!-- tabs-group-apply -->
+		<div id="tabs-sys-msgs">
+			{% if sys_msgs %}
+			<table class="ui-widget ui-widget-content">
+				<thead>
+					<tr class="ui-widget-header">
+						<th>编号</th>
+						<th>日期</th>
+						<th>消息</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in sys_msgs %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td>{{ m.datetime|date:"c" }}</td>
+						<td>{{ m.message }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>目前没有系统消息!</p>
+			{% endif %}
+		</div><!-- tabs-sys-msgs -->
+	</div><!-- msg-tabs -->
+</div><!-- sys-msg -->

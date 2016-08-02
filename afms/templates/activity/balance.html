@@ -1,0 +1,34 @@
+<div class="balance">
+	<h1>我的余额</h1>	
+	{% if groups %}	
+	<p>Tip：点击小组名称进行<span style="color: #FFFF00; font-size: 16px; font-weight: bold; font-style:italic;">活动报名</span>!</p>
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th>小组</th>
+				<th>我的小组余额</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for g in groups %}
+			<tr>
+				<td>
+					<a href="#" onclick="show_group_detail({{ g.group.id }})">{{ g.group.name }}</a>
+					{% if g.is_manager %}
+					<a href="/activity/groupadmin/?gid={{ g.group.id }}" target="_blank"> [修改小组信息] </a>
+					{% endif %}
+				</td>
+				{% if g.balance >= 0 %}
+				<td>{{ g.balance }}</td>
+				{% else %}
+				<td style="background-color: #FF3333;">{{ g.balance }} &nbsp; <span style="color: #FFFF00;">请及时充值!</span></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<p>您还没参与任何小组!</p>
+	<p>请先<a href="#" class="menu-managed-groups">创建一个小组</a>或者<a href="#" class="menu-joined-groups">参与一个小组!</a></p>
+	{% endif %}
+</div><!-- balance -->

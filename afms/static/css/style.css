@@ -1,0 +1,123 @@
+body, p, h1, h2, h3, h4, h5, h6, ul, li, form{
+	margin:0;
+	padding:0;
+	line-height:18px;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+	margin-bottom:18px;
+}
+
+html, body, #inner-body {
+	height: 100%;
+}
+
+#loading {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -16px;
+	margin-left: -16px;
+	display: none;
+}
+
+#inner-body {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.validate-tips { border: 1px solid transparent; padding: 0.3em; }
+
+.inner-north {	
+    height: 108px;
+    background-color: #236944;
+}
+
+.inner-north img {
+	float: left;
+	margin-left: 36px;
+}
+
+.inner-north h3 {
+	float: right;
+	margin-top: 72px;
+	margin-right: 18px;
+}
+
+.inner-south {
+    height: 54px;
+    /*background-color: #6eac2c;*/
+    background-color: #236944;
+    text-align: center;
+}
+
+body { 
+    font-size: 12px;     
+   	background-color: #77d5f7;
+   	font-family: "宋体";
+}
+
+h3 {
+	font-size: 14px;
+	color: #fcfdfd;
+}
+
+h2 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #fcfdfd;
+}
+
+h1 {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fcfdfd;
+}
+
+.markdown {
+	padding: 20px;
+}
+
+.markdown h1, .markdown h2, .markdown h3 {
+	color: #000;
+}
+
+.markdown pre {
+	background-color: #CCC;
+}
+
+label, input { display:block; }
+input.text { margin-bottom:12px; width:95%; padding: .4em; }
+fieldset { padding:0; border:0; margin-top:25px; }
+
+
+.ui-layout-center table {
+	width: 100%;
+	margin-bottom: 18px;
+}
+
+.ui-layout-resizer {
+    background-color: #ffffff;
+}
+
+.ui-layout-toggler {
+	background-color: #ffffff;
+}
+
+.ui-layout-east {
+	padding: 9px 9px;
+	/*background-color: #ffffff;*/
+	background-color: #236944;
+} 
+
+.ui-layout-center {
+	padding: 18px 18px;
+	background-color: #4297d7;
+	overflow: auto;
+}
+.w160 {
+	width: 160px;
+}
+.tc {
+	text-align: center;
+}

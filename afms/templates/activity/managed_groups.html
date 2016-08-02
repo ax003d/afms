@@ -1,0 +1,27 @@
+<div id="managed-groups">
+	<h2>我管理的小组</h2>
+	{% if items %}
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th>小组名称</th>
+				<th>活动次数</th>
+				<th>成员人数</th>
+				<th>总余额</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in items %}
+			<tr>
+				<td><a href="#" onclick="show_group_detail({{ i.group.id }})">{{ i.group.name }}</a></td>
+				<td>{{ i.activity_num }}</td>
+				<td>{{ i.member_num }}</td>
+				<td>{{ i.total_balance }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %} <h3>您还没有管理任何小组!</h3>
+	{% endif %}
+	<a href="#" class="button" onclick="on_create_group();">创建小组</a>
+</div><!-- managed-groups -->

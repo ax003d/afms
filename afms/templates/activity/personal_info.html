@@ -1,0 +1,43 @@
+<h2>个人信息</h2>
+<div class="personal-infos">
+	<div class="personal-info-tabs">
+		<ul>
+			<li>
+				<a href="#tabs-personal-info">个人信息</a>
+			</li>			
+			<li>
+				<a href="#tabs-chg-pwd">修改密码</a>
+			</li>
+		</ul>
+		<div id="tabs-personal-info">
+			<p class="validate-tips"></p>
+			<form id="form_chg_personal_info" method="post">
+				{% csrf_token %}
+				<fieldset>
+					<label for="last_name">* 姓：</label>
+					<input type="text" name="last_name" id="last_name" class="text ui-widget-content ui-corner-all" value="{{ user.last_name }}" />					
+					<label for="first_name">* 名：</label>
+					<input type="text" name="first_name" id="first_name" class="text ui-widget-content ui-corner-all" value="{{ user.first_name }}"/>
+					<label for="email">* 电子邮件 (用于重置密码)：</label>
+					<input type="text" name="email" id="email" class="text ui-widget-content ui-corner-all" value="{{ user.email }}"/>
+					<a href="#" class="button" onclick="on_send_test_mail();">发送测试邮件</a>
+					<input type="submit" value="保存"/>
+			</form>				
+			</form>
+		</div><!-- tabs-personal-info -->
+		<div id="tabs-chg-pwd">
+			<p class="validate-tips"></p>
+			<form id="form_chg_pwd" action="activity/chg_pwd/" method="post">
+				{% csrf_token %}
+				<fieldset>
+					<label for="old_pwd">旧密码：</label>
+					<input type="password" name="old_pwd" id="old_pwd" class="text ui-widget-content ui-corner-all" />
+					<label for="password1">新密码：</label>
+					<input type="password" name="password1" id="password1" class="text ui-widget-content ui-corner-all" />
+					<label for="password2">再次输入新密码：</label>
+					<input type="password" name="password2" id="password2" class="text ui-widget-content ui-corner-all" />
+					<input type="submit" value="确定"/>
+			</form>
+		</div><!-- tabs-chg-pwd -->
+	</div><!-- personal-info-tabs -->
+</div><!-- personal-infos -->

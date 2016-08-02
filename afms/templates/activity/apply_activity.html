@@ -1,0 +1,30 @@
+{% extends "activity/base.html" %}
+
+{% block title %}活动报名{% endblock %}
+
+{% block content %}
+<form action="/activity/apply_activity/" method="post">
+	{% csrf_token %}
+	<input type="hidden" name="activity" value="{{ activity.id }}" />
+	<table border="1">
+		<tr>
+			<th>参与人数</th>
+			<td>
+  				<select name="num">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+  				</select>				
+			</td>
+		</tr>
+		<tr>
+			<th>备注</th>
+			<td><input type="text" name="remark" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="报名" /></td>
+		</tr>
+	</table>
+</form>
+{% endblock %}

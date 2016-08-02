@@ -1,0 +1,21 @@
+<div id="dlg_apply" title="活动报名" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 162px; min-height: 60px; width: auto;" class="dlg_apply ui-dialog-content ui-widget-content">
+		<form id="form_apply" action="/activity/apply_activity/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<input type="hidden" name="activity" id="activity" />
+				<label for="num">人数：</label>
+				<select name="num" class="select ui-widget" style="width: %100;">
+					<option value="1">1  人</option>
+					<option value="2">2  人</option>
+					<option value="3">3  人</option>
+					<option value="4">4  人</option>
+					<option value="5">5  人</option>
+				</select>
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="报名"/>
+			</fieldset>
+		</form><!-- form_apply -->
+	</div>
+</div><!-- dlg_apply -->

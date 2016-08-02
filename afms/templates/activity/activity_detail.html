@@ -1,0 +1,60 @@
+<br/>
+<h3 style="color: black; text-align: center">{{ activity.date|date:"c" }} 活动详情</h3>
+<table class="ui-widget ui-widget-content">
+	<thead>
+		<tr class="ui-widget-header">
+			<th>活动费用</th>
+			<th>备注</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="min-width: 60px">{{ activity.totoal_fee }}</td>
+			<td>{{ activity.remark }}</td>
+		</tr>
+	</tbody>
+</table>
+<table class="ui-widget ui-widget-content">
+	<caption>
+		报名成员
+	</caption>
+	<thead>
+		<tr class="ui-widget-header">
+			<th>姓名</th>
+			<th>参与人数</th>
+			<th>备注</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for a in applies %}
+		<tr>
+			<td>{{ a.member.last_name }}{{ a.member.first_name }}</td>
+			<td>{{ a.num }}</td>
+			<td>{{ a.remark }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<table class="ui-widget ui-widget-content">
+	<caption>
+		实际参与成员
+	</caption>
+	<thead>
+		<tr class="ui-widget-header">
+			<th>姓名</th>
+			<th>余额支付</th>
+			<th>现金支付</th>
+			<th>备注</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for s in settles %}
+		<tr>
+			<td>{{ s.groupship.member.last_name}}{{ s.groupship.member.first_name}}</td>
+			<td>{{ s.balance_pay }}</td>
+			<td>{{ s.cash_pay }}</td>
+			<td>{{ s.remark }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>

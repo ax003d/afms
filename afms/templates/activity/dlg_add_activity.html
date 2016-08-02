@@ -1,0 +1,15 @@
+<div id="dlg_add_activity" title="添加活动" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 180px; min-height: 60px; width: auto;" class="ui-dialog-content ui-widget-content">
+		<form id="form_add_activity" action="/activity/add_activity/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<input type="hidden" name="group" id="group" />
+				<label for="date">活动时间：</label>
+				<input type="date" name="date" class="date-picker text ui-widget-content ui-corner-all"/>
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="确定"/>
+			</fieldset>
+		</form><!-- form_add_activity -->
+	</div>
+</div><!-- dlg_add_activity -->

@@ -1,0 +1,248 @@
+<h2>{{ group.name }}</h2>
+<div class="group-detail">
+	<div class="group-tabs">
+		<ul>
+			<li>
+				<a href="#tabs-recent-activity">最近活动</a>
+			</li>
+			<li>
+				<a href="#tabs-summary">小组简介</a>
+			</li>
+			<li>
+				<a href="#tabs-activity-records">活动记录</a>
+			</li>
+			<li>
+				<a href="#tabs-group-members">小组成员</a>
+			</li>
+		</ul>
+		<div id="tabs-recent-activity">
+			<!-- show activity -->
+			{% if activity %}
+			<table class="ui-widget ui-widget-content">
+				<thead class="ui-widget-header">
+					<tr>
+						<td>日期</td>
+						<td>简介</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ activity.date|date:"c" }}</td>
+						<td>{{ activity.remark|safe }}</td>
+					</tr>
+				</tbody>
+			</table>
+			{% else %}		
+			<p>
+				本小组目前还没有活动！
+			</p>
+			{% endif %}<!-- if activity -->
+			
+			<!--  add & chg activity  -->
+			{% if is_manager %}			 
+			<a class="button" href="#" onclick="on_add_activity({{ group.id }})">添加活动</a>
+			{% endif %}<!-- if is_manager -->
+			
+			<!-- add activity -->
+			{% if activity %}
+			{% if not settles %}
+			{% if is_manager %}
+			<a class="button" href="#" onclick="on_chg_activity({{ activity.id }}, '{{ activity.date|date:"c" }}', {{ activity.totoal_fee }}, '{{ activity.remark }}')">修改活动</a>
+			{% endif %}<!-- if activity -->
+			{% endif %}<!-- if not settles -->
+			{% endif %}<!-- if is_manager -->
+			
+			<!-- show applied members -->
+			{% if activity %}
+			{% if not settles %}
+			<table class="ui-widget ui-widget-content">
+				<caption>
+					已报名成员
+				</caption>
+				<thead class="ui-widget-header">
+					<tr>
+						<th>报名时间</th>
+						<th>姓名</th>
+						<th>参与人数</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for a in applies %}
+					<tr>
+						<td class="w160">{{ a.apply_time|date:"c" }}</td>
+						<td class="tc"><a href="#{{ a.member.username }}"></a>{{ a.member.last_name }}{{ a.member.first_name }}</td>
+						<td class="tc">{{ a.num }}</td>
+						<td>{{ a.remark }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table><!-- tbl apply list -->
+			
+			{% if applied %}
+			<form id="form_cancel_apply" action="/activity/cancel_apply/" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="activity" value="{{ activity.id }}" />
+				<input type="submit" value="取消报名"/>
+			</form>
+			{% else %}
+			<a class="button" href="#" onclick="on_apply({{ activity.id }})">我要报名</a>
+			{% endif %} <!-- if applied -->
+			
+			{% endif %}<!-- if not settles -->
+			{% endif %}<!-- if activity -->
+			
+			<!-- activity settlement -->
+			{% if activity %}
+			{% if not settles %}
+			{% if is_manager %} 
+			<div>
+				<form id="form_settle" action="/activity/settle_activity/" method="post">
+					{% csrf_token %}
+					<fieldset>
+						<input type="hidden" name="activity" value="{{ activity.id }}" />
+						<table class="ui-widget ui-widget-content">
+							<caption>
+								实际参与成员
+							</caption>
+							<thead class="ui-widget-header">
+								<tr>
+									<th>姓名</th>
+									<th>余额支付</th>
+									<th>现金支付</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+									<select name="set_lst[0]['groupship']">
+										{% for gs in gss %} <option value="{{ gs.id }}">{{ gs.member.last_name }}{{ gs.member.first_name }}</option>
+										{% endfor %}
+									</select></td>
+									<td>
+									<input type="text" name="set_lst[0]['balance_pay']" value="0"/>
+									</td>
+									<td>
+									<input type="text" name="set_lst[0]['cash_pay']" value="0"/>
+									</td>
+									<td>
+									<input type="text" name="set_lst[0]['remark']" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<a id="btn_add_settle" href="#">添加</a>
+						<input type="submit" value="活动结算"/>
+					</fieldset>
+				</form><!-- form_settle -->
+			</div>
+			{% endif %}<!-- if activity -->
+			{% endif %}<!-- if not settles -->
+			{% endif %}<!-- if is_manager -->
+			
+			<!-- show activity settles -->
+			{% if settles %}
+			<table class="ui-widget ui-widget-content">
+				<caption>
+					实际参与成员
+				</caption>
+				<thead class="ui-widget-header">
+					<tr>
+						<th>姓名</th>
+						<th>余额支付</th>
+						<th>现金支付</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for s in settles %}
+					<tr>
+						<td><a href="#{{ s.groupship.member.username }}"></a>{{ s.groupship.member.last_name}}{{ s.groupship.member.first_name}}</td>
+						<td>{{ s.balance_pay }}</td>
+						<td>{{ s.cash_pay }}</td>
+						<td>{{ s.remark }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}<!-- if settles -->
+		</div><!-- tabs-recent-activity -->
+		<div id="tabs-summary">
+			{% if is_manager %}
+			点击小组名称修改小组信息
+			{% endif %}
+			<table class="ui-widget ui-widget-content">
+				<thead>
+					<tr class="ui-widget-header">
+						<th>组名</th>
+						<th>简介</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{% if is_manager %}
+						<td><a href="/activity/groupadmin/?gid={{ group.id }}" target="_blank">{{ group.name }}</a></td>
+						{% else %}
+						<td>{{ group.name }}</td>
+						{% endif %}
+						<td class="markdown">{{ group.get_description|safe }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- tabs-summary -->
+		<div id="tabs-activity-records">
+			{% if activities %}
+			<table class="ui-widget ui-widget-content">
+				<thead class="ui-widget-header">
+					<tr>
+						<th style="min-width: 80px">日期</th>
+						<th style="min-width: 60px">活动费用</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for as in activities %}
+					<tr>
+						<td><a href="#" onclick="show_activity_detail({{ as.id }})">{{ as.date|date:"c" }}</a></td>
+						<td>{{ as.totoal_fee }}</td>
+						<td>{{ as.remark }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>该小组暂时没有活动记录!</p>
+			{% endif %}
+			<div class="activity-detail"></div>
+		</div><!-- tabs-activity-records -->
+		<div id="tabs-group-members">
+			<table class="ui-widget ui-widget-content">
+				<thead class="ui-widget-header">
+					<tr>
+						<th>姓名</th>
+						<th>是否为管理员</th>
+						<th>余额(RMB)</th>
+						{% if is_manager %} <th><a href="#">操作</a></th>
+						{% endif %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for gs in gss %}
+					<tr>
+						<td><a href="{{ gs.member.username }}"></a>{{ gs.member.last_name }}{{ gs.member.first_name }}</td>
+						<td> {% if gs.is_manager %}
+						是
+						{% else %}
+						否
+						{% endif %} </td>
+						<td> {{ gs.balance }}</td>
+						{% if is_manager %} <td><a href="#" onclick="on_recharge({{ gs.id }})">充值</a></td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div><!-- tabs-group-members -->
+	</div><!-- group-tabs -->
+</div><!-- group-detail -->

@@ -1,0 +1,59 @@
+<div id="managed-groups">
+	<h2>我参与的小组</h2>
+	{% if items %}
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th>小组名称</th>
+				<th>成员人数</th>
+				<th>活动次数</th>
+				<th>我参与的次数</th>
+				<th>参与百分比</th>
+				<th>我的小组余额</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in items %}
+			<tr>
+				<td><a href="#" onclick="show_group_detail({{ i.group.id }})">{{ i.group.name }}</a></td>
+				<td>{{ i.member_num }}</td>
+				<td>{{ i.activity_num }}</td>
+				<td>{{ i.joined_num }}</td>
+				<td>{{ i.percentage|floatformat:2 }}%</td>
+				<td>{{ i.balance }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %} <h3>您还没有参与任何小组!</h3>
+	{% endif %}
+	{% if others %}
+	<h2>其他小组</h2>
+	<table class="ui-widget ui-widget-content">
+		<thead>
+			<tr class="ui-widget-header">
+				<th>小组名称</th>
+				<th>成员人数</th>
+				<th>活动次数</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for o in others %}
+			<tr>
+				<td>{{ o.group.name }}</td>
+				<td>{{ o.member_num }}</td>
+				<td>{{ o.activity_num }}</td>
+				<td>
+					{% if not o.applied %}
+					<a href="#" onclick="on_group_apply('{{ o.group.name }}', {{ o.group.id }})">申请加入</a>
+					{% else %}
+					申请中...
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endif %}
+</div><!-- managed-groups -->

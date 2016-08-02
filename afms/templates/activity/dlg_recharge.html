@@ -1,0 +1,15 @@
+<div id="dlg_recharge" title="账户充值" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 180px; min-height: 60px; width: auto;" class="dlg_apply ui-dialog-content ui-widget-content">
+		<form id="form_recharge" action="/activity/recharge/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<input type="hidden" name="groupship" id="groupship"/>
+				<label for="money">金额：</label>
+				<input type="text" name="money" class="text ui-widget-content ui-corner-all" />
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="充值"/>
+			</fieldset>
+		</form><!-- form_recharge -->
+	</div>
+</div><!-- dlg_recharge -->

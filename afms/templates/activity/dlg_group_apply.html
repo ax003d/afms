@@ -1,0 +1,13 @@
+<div id="dlg_group_apply" title="申请加入小组" class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+	<div style="height: 126px; min-height: 60px; width: auto;" class="dlg_apply ui-dialog-content ui-widget-content">
+		<form id="form_group_apply" action="/activity/join_group_apply/" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<input type="hidden" name="group" id="group" />
+				<label for="remark">备注：</label>
+				<input type="text" name="remark" class="text ui-widget-content ui-corner-all" />
+				<input type="submit" value="申请加入"/>
+			</fieldset>
+		</form><!-- form_group_apply -->
+	</div>
+</div><!-- dlg_group_apply -->
